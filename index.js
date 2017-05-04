@@ -1,19 +1,9 @@
 var express = require("express");
 var app = express();
 app.use(express.logger());
-
+app.set("view engine", "tpl");
 app.get('/', function(request, response) {
-  response.send("<form><a href='/back'><button>Назад</button></a><a href='/forward'><button>Вперед</button></a></form>");
-});
-
-app.get('/back', function(request, response) {
-  console.log('hello world');
-  response.send("<form><a href='/back'><button>Назад</button></a><a href='/forward'><button>Вперед</button></a></form>");
-});
-
-app.get('/forward', function(request, response) {
-  console.log('hello world');
-  response.send("<form><a href='/back'><button>Назад</button></a><a href='/forward'><button>Вперед</button></a></form>");
+  response.render("index.tpl");
 });
 
 var port = process.env.PORT || 5000;
