@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express();
-app.use(express.logger());
-app.set("view engine", "tpl");
+
+app.set("view engine", "hbs");
 app.get('/', function(request, response) {
   response.render("index");
 });
