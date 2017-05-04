@@ -3,7 +3,7 @@ var app = express();
 app.use(express.logger());
 app.set("view engine", "tpl");
 app.get('/', function(request, response) {
-  response.render("index.tpl");
+  response.render("index");
 });
 
 var port = process.env.PORT || 5000;
