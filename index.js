@@ -1,10 +1,14 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
-
-app.get('/', function(req, res){
-  res.send('<h1>Hello world</h1>');
+var io = require('socket.io')(http);
+ 
+app.set('port', (process.env.PORT || 5000));
+ 
+app.get('/', function(req, res) {
+    res.send("Hello World!");
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+app.listen(app.get('port'), function() {
+    console.log('Node app is running on port', app.get('port'));
 });
