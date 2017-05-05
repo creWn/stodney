@@ -1,6 +1,8 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
 var app = express();
+var server = require('http').Server(app); // Подключаем http через app
+var io = require('socket.io')(server); // Подключаем socket.io и указываем на сервер
 
 app.set('port', (process.env.PORT || 5000));
 
