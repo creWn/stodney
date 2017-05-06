@@ -11,7 +11,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-    res.send("Hello World!");
+    res.send('#100днейкода');
 });
 
 app.get('/20', function (req, res) {
