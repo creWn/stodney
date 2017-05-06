@@ -14,6 +14,24 @@ app.get('/19', function(req, res) {
 });
 
 app.get('/20', function(req, res) {
+
+app.listen();
+ 
+io.listen(server, {
+     
+    onClientConnect: function(client){
+            console.log('hello');
+    },
+     
+    onClientDisconnect: function(client){
+        // Действие при отключении пользователя
+    },
+     
+    onClientMessage: function(message, client) {
+        // Действие при получении сообщения от пользователя
+    }
+     
+});
     res.sendFile(__dirname + '/days/20/index.html');
  
 });
