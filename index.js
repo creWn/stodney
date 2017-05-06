@@ -1,8 +1,14 @@
-var app = require('express')();
+'use strict';
 
-var http = require('http').Server(app);
+const express = require('express');
+const socketIO = require('socket.io');
+const path = require('path');
 
-var io = require('socket.io')(http);
+var app = express()
+  .use((req, res) => res.sendFile(INDEX) )
+.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+const io = socketIO(server);
 
 app.get('/', function(req, res) {
     res.send("Hello World!");
