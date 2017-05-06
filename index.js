@@ -13,11 +13,9 @@ app.get('/19', function(req, res) {
     res.sendFile(__dirname + '/days/19/index.html');
 });
 
-io.on('connection', function(socket) {
-    socket.on('chat message', function(msg) {
-        console.log('message: ' + msg);
-        io.emit('chat message', msg);
-    });
+app.get('/20', function(req, res) {
+    res.sendFile(__dirname + '/days/20/index.html');
+ 
 });
 
 app.listen(app.get('port'), function() {
