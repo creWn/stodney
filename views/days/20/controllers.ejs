@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>20. Контроллеры</title>
+    <% include ../../partials/bootstrap.ejs %>
+</head>
+<style>
+    .command-button {
+        width: 100px;
+    }
+</style>
+<body>
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/20">к заданию</a>
+        </div>
+        <div class="panel-body">
+            <table class="center-block" style="width: 300px">
+                <tr>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-default command-button" onclick="{sendCommand('up')}">вверх</button>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn btn-default command-button" onclick="{sendCommand('left')}">влево</button>
+                    </td>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-default command-button" onclick="{sendCommand('right')}">вправо</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-default command-button" onclick="{sendCommand('down')}">вниз</button>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+<script>
+    let socket = io(location.origin);
+
+    function sendCommand(command) {
+        socket.emit('20_command_send', {command: command});
+    }
+</script>
+</body>
+</html>
