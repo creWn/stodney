@@ -6,7 +6,6 @@ let server = require('http').createServer(app);
 let io = require('socket.io')(server);
 let port = process.env.PORT || 8081;
 
-app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
