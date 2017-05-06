@@ -14,8 +14,6 @@ app.get('/19', function(req, res) {
 });
 
 app.get('/20', function(req, res) {
-
-app.listen();
  
 io.listen(server, {
      
