@@ -1,26 +1,20 @@
 {
-  "name": "stodney",
-  "version": "0.1",
-  "engines": {
-    "node": "6.10.2"
-  },
-  "main": "index.js",
+  "name": "okl",
+  "version": "0.1.0",
+  "description": "",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "ejs": "2.5.6",
-    "express": "4.15.2",
-    "socket.io": "^1.7.3"
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "git+https://github.com/creWn/stodney.git"
   },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "license": "MIT"
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "socket.io": "^1.7.3"
+  }
 }
