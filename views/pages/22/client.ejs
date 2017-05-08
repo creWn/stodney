@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Control</title>
+    <style>
+        canvas {
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+<a href="/22" target="_blank">View</a>
+<canvas id='canvas'></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script>
+    let socket = io(location.origin);
+    let stage = new createjs.Stage("canvas");
+    stage.canvas.width = 800;
+    stage.canvas.height = 600;
+
+    var color  = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+
+    var circle = new createjs.Shape();
+    circle.graphics.beginFill(color).drawCircle(0, 0, 10);
+    circle.x = 400;
+    circle.y = 300;
+
+    stage.addChild(circle);
+    circle.on("pressmove", function(evt) {
+        evt.target.x = evt.stageX;
+        evt.target.y = evt.stageY;
+        stage.update();
+    });
+    circle.on("pressup", function(evt) { 
+            socket.emit('circlexy_send', {x: circle.x, y:circle.y, color:color});
+    });
+    stage.update();
+
+    function sendCommand(command) {
+        socket.emit('21_command_send', {x: circle.x, y:circle.y});
+    }
+</script>
+</body>
+</html>
