@@ -23,7 +23,7 @@
     stage.canvas.height = 600;
     
     socket.on('circlexy_listen', function (data) {
-        console.log(data);
+        //console.log(data);
         stage.removeAllChildren();
         for (let key in data) {
             var circle = new createjs.Shape();
@@ -34,7 +34,7 @@
         }
         setTimeout(function () {
             stage.update();
-        }, 1)
+        }, 5)
     });
 </script>
 </body>
