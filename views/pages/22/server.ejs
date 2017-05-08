@@ -7,12 +7,15 @@
         canvas {
             width: 800px;
             height: 600px;
+            border: 1px black solid;
         }
     </style>
 </head>
 <body>
-<a href="/22/mr" target="_blank">Control</a>
+    <div>Server window -> <a href="/22/mr" target="_blank">Client</a></div>
 <canvas id='canvas'></canvas>
+
+<div style="display:inline-block;" id="client"><a onclick="loadClient();" href="#">Show client!</a></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
 <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
@@ -23,7 +26,7 @@
     stage.canvas.height = 600;
     
     socket.on('circlexy_listen', function (data) {
-        //console.log(data);
+        console.log(data);
         stage.removeAllChildren();
         for (let key in data) {
             var circle = new createjs.Shape();
@@ -34,8 +37,13 @@
         }
         setTimeout(function () {
             stage.update();
-        }, 5)
+        }, 1)
     });
+    function loadClient() {
+        var client = document.getElementById('client');
+        client.innerHTML = '<iframe src="http://localhost:8081/22/mr" width="884" height="650"></iframe>';
+        return false;
+    }
 </script>
 </body>
 </html>
