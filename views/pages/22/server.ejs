@@ -36,7 +36,13 @@
             var text = new createjs.Text(data[key].nick, "20px Arial", "#ff7700");
             text.x = data[key].x-20;
             text.y = data[key].y-30;
-            stage.addChild(circle, text);
+            
+            var text2 = new createjs.Text(data[key].res, "10px Arial", "#000");
+            text2.x = data[key].x-(data[key].res/2);
+            text2.y = data[key].y-(data[key].res/2);
+
+            
+            stage.addChild(circle, text, text2);
         }
         setTimeout(function () {
             stage.update();
