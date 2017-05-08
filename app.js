@@ -37,7 +37,9 @@ io.on('connection', function (socket) {
         } else {
             coords[socket.id] = {
                 x: 400,
-                y: 300
+                y: 300,
+                color: 'red',
+                res: 10
             };
         }
         socket.broadcast.emit('circlexy_listen', coords);
