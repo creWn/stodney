@@ -17,15 +17,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
 <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
 <script>
+    var nick = prompt('Your nickname:', 'user');
     let socket = io(location.origin);
     let stage = new createjs.Stage("canvas");
     stage.canvas.width = 800;
     stage.canvas.height = 600;
 
     var color  = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+    var size = randomInteger(5, 20);
 
     var circle = new createjs.Shape();
-    circle.graphics.beginFill(color).drawCircle(0, 0, 10);
+    circle.graphics.beginFill(color).drawCircle(0, 0, size);
     circle.x = 400;
     circle.y = 300;
 
@@ -35,9 +37,15 @@
         evt.target.y = evt.stageY;
 
         stage.update();
-        socket.emit('circlexy_send', {x: circle.x, y:circle.y, color:color});
+        socket.emit('circlexy_send', {x: circle.x, y:circle.y, color:color,nick:nick,res:size});
     });
     stage.update();
+
+    function randomInteger(min, max) {
+        var rand = min - 0.5 + Math.random() * (max - min + 1)
+        rand = Math.round(rand);
+        return rand;
+     }
 </script>
 </body>
 </html>
