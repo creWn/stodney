@@ -33,16 +33,11 @@
     circle.on("pressmove", function(evt) {
         evt.target.x = evt.stageX;
         evt.target.y = evt.stageY;
+
         stage.update();
-    });
-    circle.on("pressup", function(evt) { 
-            socket.emit('circlexy_send', {x: circle.x, y:circle.y, color:color});
+        socket.emit('circlexy_send', {x: circle.x, y:circle.y, color:color});
     });
     stage.update();
-
-    function sendCommand(command) {
-        socket.emit('21_command_send', {x: circle.x, y:circle.y});
-    }
 </script>
 </body>
 </html>
