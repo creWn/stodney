@@ -26,14 +26,17 @@
     stage.canvas.height = 600;
     
     socket.on('circlexy_listen', function (data) {
-        console.log(data);
         stage.removeAllChildren();
         for (let key in data) {
             var circle = new createjs.Shape();
-            circle.graphics.beginFill(data[key].color).drawCircle(0, 0, 10);
+            circle.graphics.beginFill(data[key].color).drawCircle(0, 0, data[key].res);
             circle.x = data[key].x;
             circle.y = data[key].y;
-            stage.addChild(circle);
+
+            var text = new createjs.Text(data[key].nick, "20px Arial", "#ff7700");
+            text.x = data[key].x-20;
+            text.y = data[key].y-30;
+            stage.addChild(circle, text);
         }
         setTimeout(function () {
             stage.update();
@@ -41,7 +44,7 @@
     });
     function loadClient() {
         var client = document.getElementById('client');
-        client.innerHTML = '<iframe src="https://stodney.herokuapp.com/22/mr" width="884" height="650"></iframe>';
+        client.innerHTML = '<iframe src="http://localhost:8081/22/mr" width="884" height="650"></iframe>';
         return false;
     }
 </script>
