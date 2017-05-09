@@ -20,6 +20,9 @@ app.get('/22', function (req, res) {
 app.get('/22/mr', function (req, res) {
     res.render('pages/22/client');
 });
+app.get('/23', function (req, res) {
+    res.render('pages/22/server');
+});
 
 var coords = {};
 
