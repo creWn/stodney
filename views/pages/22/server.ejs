@@ -15,7 +15,7 @@
     <div>Server window -> <a href="/22/mr" target="_blank">Client</a></div>
 <canvas id='canvas'></canvas>
 
-<div style="display:inline-block;" id="client"><a onclick="loadClient();" href="#">Show client!</a></div>
+<div style="display:inline-block;" id="client"><iframe src="https://stodney.herokuapp.com/22/mr" width="884" height="650"></iframe></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
 <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
@@ -48,11 +48,6 @@
             stage.update();
         }, 1)
     });
-    function loadClient() {
-        var client = document.getElementById('client');
-        client.innerHTML = '<iframe src="https://stodney.herokuapp.com/22/mr" width="884" height="650"></iframe>';
-        return false;
-    }
 </script>
 </body>
 </html>
