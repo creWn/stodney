@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>21</title>
+    <style>
+        canvas {
+            width: 800px;
+            height: 600px;
+            border: 1px black solid;
+        }
+    </style>
+</head>
+<body>
+    <div>Server window -> <a href="/22/mr" target="_blank">Client</a></div>
+<canvas id='canvas'></canvas>
+
+<div style="display:inline-block;" id="client"><iframe src="/22/mr" width="884" height="650"></iframe></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script>
+    let socket = io(location.origin);
+    let stage = new createjs.Stage("canvas");
+    stage.canvas.width = 800;
+    stage.canvas.height = 600;
+    
+    socket.on('circlexy_listen', function (data) {
+        stage.removeAllChildren();
+        for (let key in data) {
+            var circle = new createjs.Shape();
+            circle.graphics.beginFill(data[key].color).drawCircle(0, 0, data[key].res);
+            circle.x = data[key].x;
+            circle.y = data[key].y;
+
+            var text = new createjs.Text(data[key].nick, "20px Arial", "#ff7700");
+            text.x = data[key].x-20;
+            text.y = data[key].y-30;
+
+            var text2 = new createjs.Text(data[key].res, "14px Arial", "#000");
+            text2.x = data[key].x;
+            text2.y = data[key].y;
+
+            stage.addChild(circle, text, text2);
+        }
+        setTimeout(function () {
+            stage.update();
+        }, 1)
+    });
+</script>
+</body>
+</html>
