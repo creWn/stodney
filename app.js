@@ -23,6 +23,9 @@ app.get('/22/mr', function (req, res) {
 app.get('/23', function (req, res) {
     res.render('pages/22/server');
 });
+app.get('/24', function (req, res) {
+    res.render('pages/24/server');
+});
 
 var coords = {};
 
