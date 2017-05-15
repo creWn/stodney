@@ -29,6 +29,9 @@ app.get('/24', function (req, res) {
 app.get('/28', function (req, res) {
     res.render('pages/28/index');
 });
+app.get('/29', function (req, res) {
+    res.render('pages/29/index');
+});
 
 var coords = {};
 
@@ -54,6 +57,25 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('circlexy_listen', coords);
     });
 
+    socket.emit('29_get', coords);
+    socket.broadcast.emit('29_get', coords);
+    socket.on('29_send', function (data) {
+        if (socket.id in coords) {
+            coords[socket.id].x = data.x;
+            coords[socket.id].y = data.y;
+            coords[socket.id].color = data.color;
+            coords[socket.id].size = data.size;
+        } else {
+            coords[socket.id] = {
+                x: 400,
+                y: 300,
+                color: 'red',
+                size: 40
+            };
+        }
+        socket.broadcast.emit('29_get', coords);
+    });
+    
     socket.on('disconnect', function(){
         delete coords[socket.id];
         socket.broadcast.emit('circlexy_listen', coords);
