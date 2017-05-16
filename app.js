@@ -32,6 +32,9 @@ app.get('/28', function (req, res) {
 app.get('/29', function (req, res) {
     res.render('pages/29/index');
 });
+app.get('/30', function (req, res) {
+    res.render('pages/30/index');
+});
 
 var coords = {};
 
@@ -57,8 +60,11 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('circlexy_listen', coords);
     });
 
-    socket.emit('29_get', coords);
-    socket.broadcast.emit('29_get', coords);
+    var room = '';
+    socket.on('room_id', function (data) {
+        room = data;
+        socket.join(data);
+    });
     socket.on('29_send', function (data) {
         if (socket.id in coords) {
             coords[socket.id].x = data.x;
@@ -73,7 +79,7 @@ io.on('connection', function (socket) {
                 size: 40
             };
         }
-        socket.broadcast.emit('29_get', coords);
+        socket.to(room).broadcast.emit('29_get', coords);
     });
     
     socket.on('disconnect', function(){
