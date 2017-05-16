@@ -61,7 +61,7 @@
 
     socket.on('29_get', function (data) {
     	stage.removeAllChildren();
-    	stage.addChild(circle);
+    	stage.addChild(circle, text);
         for (let key in data) {
             if(key !== socket.id) {
                 let circle = new createjs.Shape();
