@@ -63,7 +63,7 @@ io.on('connection', function (socket) {
     var room = {};
     socket.on('room_id', function (data) {
         room[socket.id] = data;
-        socket.join(data);
+        socket.join(room[socket.id]);
     });
     socket.on('29_send', function (data) {
         if (socket.id in coords) {
