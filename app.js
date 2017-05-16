@@ -60,9 +60,9 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('circlexy_listen', coords);
     });
 
-    var room = '';
+    var room = {};
     socket.on('room_id', function (data) {
-        room = data;
+        room[socket.id] = data;
         socket.join(data);
     });
     socket.on('29_send', function (data) {
@@ -79,7 +79,7 @@ io.on('connection', function (socket) {
                 size: 40
             };
         }
-        socket.to(room).broadcast.emit('29_get', coords);
+        socket.to(room[socket.id]).broadcast.emit('29_get', coords);
     });
     
     socket.on('disconnect', function(){
