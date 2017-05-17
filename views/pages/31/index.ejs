@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Control</title>
+    <style>
+    	body {
+    		margin: 0;
+            padding: 0;
+    	}
+        canvas {
+            width: 800px;
+            height: 600px;
+            border: 1px black solid;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id='client'></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script>
+	var size = randomInteger(15, 40);
+	var color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+    var room = 'H3R0Ku';
+
+    var canvas = document.getElementById('client');
+        canvas.style.width = document.documentElement.clientWidth + 'px';
+        canvas.style.height = document.documentElement.clientHeight + 'px';
+
+	var socket = io(location.origin);
+    var stage, circle, text;
+    socket.on('connect', function() {
+        stage = new createjs.Stage("client");
+        stage.canvas.width = document.documentElement.clientWidth;
+        stage.canvas.height = document.documentElement.clientHeight;
+
+        createjs.Touch.enable(stage);
+
+        circle = new createjs.Shape();
+        circle.graphics.beginFill(color).drawCircle(0, 0, size);
+        circle.x = 400;
+        circle.y = 300;
+
+        room = prompt('Your room:', 'H3R0Ku');
+        socket.emit('room_id', room);
+
+        text = new createjs.Text(room, "30px Arial", "#000");
+        text.x = 100;
+        text.y = 100;
+        
+        stage.addChild(text, circle);
+        stage.update();
+        circle.on("pressmove", function(evt) {
+            evt.target.x = evt.stageX;
+            evt.target.y = evt.stageY;
+
+            stage.update();
+            socket.emit('29_send', {x: circle.x, y:circle.y, color:color,size:size});
+        });
+    });
+
+    socket.on('29_get', function (data) {
+    	stage.removeAllChildren();
+    	stage.addChild(circle, text);
+        for (let key in data) {
+            if(key !== socket.id) {
+                let circle = new createjs.Shape();
+                let size = data[key].size;
+                let color = data[key].color;
+                circle.graphics.beginFill(color).drawCircle(0, 0, size);
+                circle.x = data[key].x;
+                circle.y = data[key].y;
+                stage.addChild(circle);
+            }
+        }
+        setTimeout(function () {
+            stage.update();
+        }, 1)
+    });
+
+    socket.on('console', function (data) {
+        console.log(data);
+    });
+
+    function randomInteger(min, max) {
+        var rand = min - 0.5 + Math.random() * (max - min + 1)
+        rand = Math.round(rand);
+        return rand;
+     }
+</script>
+</body>
+</html>
