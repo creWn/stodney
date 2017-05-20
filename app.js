@@ -41,6 +41,9 @@ app.get('/31', function (req, res) {
 app.get('/32', function (req, res) {
     res.render('pages/32/index');
 });
+app.get('/34', function (req, res) {
+    res.render('pages/34/index');
+});
 
 var coords = {};
 
