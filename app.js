@@ -20,6 +20,9 @@ app.get('/33', function (req, res) {
 app.get('/34', function (req, res) {
     res.render('pages/34/index');
 });
+app.get('/35', function (req, res) {
+    res.render('pages/35/index');
+});
 
 var rooms = [];
 
